@@ -84,13 +84,13 @@ def kill_switch(path, tags, args, source):
     if state == 1:
         arduino.write('S')
         
-#def lights(path, tags, args, source):
-#    state=int(args[0])
-#    print "Lights:", state
-#    arduino.write('L')
-#    arduino.write('\n')
-#    arduino.write('%i' % state)
-#    arduino.write('\n')
+def lights(path, tags, args, source):
+    state=int(args[0])
+    print "Lights:", state
+    arduino.write('L')
+    arduino.write('\n')
+    arduino.write('%i' % state)
+    arduino.write('\n')
 #execute
 
 
@@ -99,7 +99,7 @@ server.addMsgHandler( "/1/fader1", fader_callback)
 server.addMsgHandler( "/1/fader2", fader2_callback)
 server.addMsgHandler("/1/xy1", xypad)
 server.addMsgHandler("/1/push1", kill_switch)
-#server.addMsgHandler("/1/toggle1", lights)
+server.addMsgHandler("/1/toggle1", lights)
 while True:
     server.handle_request()
 
