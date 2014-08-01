@@ -4,7 +4,7 @@ import serial
 
 server = OSCServer( ("192.168.240.1", 8000) )
 client = OSCClient()
-client.connect( ("192.168.240.225", 9000) )
+client.connect( ("192.168.240.195", 9000) )
 arduino = serial.Serial('/dev/ttyATH0', 115200)
 
 #waits for slider change
@@ -83,6 +83,14 @@ def kill_switch(path, tags, args, source):
     print "Kill Switch:", state
     if state == 1:
         arduino.write('S')
+        
+#def lights(path, tags, args, source):
+#    state=int(args[0])
+#    print "Lights:", state
+#    arduino.write('L')
+#    arduino.write('\n')
+#    arduino.write('%i' % state)
+#    arduino.write('\n')
 #execute
 
 
@@ -91,7 +99,7 @@ server.addMsgHandler( "/1/fader1", fader_callback)
 server.addMsgHandler( "/1/fader2", fader2_callback)
 server.addMsgHandler("/1/xy1", xypad)
 server.addMsgHandler("/1/push1", kill_switch)
-
+#server.addMsgHandler("/1/toggle1", lights)
 while True:
     server.handle_request()
 
